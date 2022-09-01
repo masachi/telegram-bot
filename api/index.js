@@ -2,11 +2,14 @@ const TelegramBot = require('node-telegram-bot-api');
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.TELEGRAM_BOT_TOKEN;
+const url = "https://telegram-bot-omega-nine.vercel.app/"
 
 const port = process.env.PORT || 9000;
 const express = require('express');
 
 const app = express();
+
+bot.setWebHook(`${url}/bot${token}`);
 
 // parse the updates to JSON
 app.use(express.json());
