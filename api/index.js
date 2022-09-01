@@ -1,9 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = process.env.TELEGRAM_BOT_TOKEN;
+const token = process.env.TELEGRAM_BOT_TOKEN || "5616034370:AAFoh7Bxndca-UgvpNOLKXYiLmLATPPR1Xw";
 
-const port = process.env.PORT;
+const port = process.env.PORT || 9000;
 const express = require('express');
 
 const app = express();
