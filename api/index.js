@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = process.env.TELEGRAM_BOT_TOKEN || "5616034370:AAFoh7Bxndca-UgvpNOLKXYiLmLATPPR1Xw";
+const token = process.env.TELEGRAM_BOT_TOKEN;
 
 const port = process.env.PORT || 9000;
 const express = require('express');
@@ -29,7 +29,7 @@ bot.onText(/\/help/, (msg, match) => {
 
 // Listen for any kind of message. There are different kinds of
 // messages.
-bot.on('message', (msg) => {
+bot.on('text', (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, '蛤？');
 });
