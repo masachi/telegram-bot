@@ -16,7 +16,9 @@ app.listen(port, () => {
   console.log(`Express server is listening on ${port}`);
 });
 
-console.error("token", token);
+app.get('/', (req, res) => {
+  res.send('Home Page Route');
+});
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
