@@ -1,5 +1,5 @@
 const express = require('express')
-const Telegraf = require('telegraf')
+const { Telegraf } = require('telegraf');
 
 const app = express()
 
