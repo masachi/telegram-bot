@@ -1,13 +1,17 @@
 const express = require('express')
-const TelegramBot = require('node-telegram-bot-api');
+const Telegraf = require('telegraf')
 
 const app = express()
 
 const APP_PORT = 3000
 const token = process.env.TELEGRAM_BOT_TOKEN;
-const CURRENT_HOST = 'https://telegram-bot-omega-nine.vercel.app'
+const CURRENT_HOST = "https://telegram-bot-omega-nine.vercel.app/"
 
-const bot = new TelegramBot(token, {polling: true});
+const bot = new Telegraf(token, {
+  telegram: {
+    webhookReply: false
+  }
+})
 
 bot.on('text', ctx => {
   return ctx.reply(
