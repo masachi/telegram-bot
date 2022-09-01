@@ -3,6 +3,20 @@ const TelegramBot = require('node-telegram-bot-api');
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.TELEGRAM_BOT_TOKEN;
 
+const port = process.env.PORT;
+const express = require('express');
+
+const app = express();
+
+// parse the updates to JSON
+app.use(express.json());
+
+// Start Express Server
+app.listen(port, () => {
+  console.log(`Express server is listening on ${port}`);
+});
+
+console.error("token", token);
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
@@ -30,3 +44,5 @@ bot.on('photo', (msg) => {
     const msgId = msg.message_id;
     bot.sendMessage(chatId, '等一下做个上传 + gist push', {reply_to_message_id: msgId});
 });
+
+module.exports = app;
