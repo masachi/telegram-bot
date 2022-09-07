@@ -1,3 +1,5 @@
+import {uploadByUrl} from "../utils/upload";
+
 const processPhotoMessage = async (message) => {
   if (message.photo && message.photo.length > 0) {
     message.photo.sort((a, b) => b.file_size || 0 - a.file_size || 0);

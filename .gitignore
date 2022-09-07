@@ -41,3 +41,7 @@ lib
 .env.build
 
 .vercel
+
+.idea/
+
+dist/

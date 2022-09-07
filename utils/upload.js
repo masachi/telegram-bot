@@ -1,7 +1,7 @@
 const stream = require('stream')
 
 const fetch = require('node-fetch')
-const FormData = require('form-data')
+const FormData = require('formdata-node')
 
 const toArray = require('stream-to-array')
 

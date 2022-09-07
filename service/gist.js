@@ -30,7 +30,7 @@ appendGistByGistId = async (gist_id, appendContent, fileName) => {
 getContentByGistId = async (gist_id, fileName) => {
     const gistGetResponse = await octokit.request(`GET /gists/${gist_id}`);
     if(gistGetResponse.status === 200) {
-        console.error(gistGetResponse.data.files[fileName].content);
+        return gistGetResponse.data.files[fileName].content;
     }
 
     return "";
