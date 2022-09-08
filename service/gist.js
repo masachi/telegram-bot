@@ -8,6 +8,7 @@ const octokit = new Octokit({
 });
 
 updateGistByGistId = async (gist_id, content, fileName) => {
+  console.log("更新gist ING")
   let data = {
     description: "TG Bot上传了个图片",
     files: {},
@@ -28,6 +29,7 @@ appendGistByGistId = async (gist_id, appendContent, fileName) => {
 };
 
 getContentByGistId = async (gist_id, fileName) => {
+    console.log("获取gist 内容 ING")
     const gistGetResponse = await octokit.request(`GET /gists/${gist_id}`);
     if(gistGetResponse.status === 200) {
         return gistGetResponse.data.files[fileName].content;
