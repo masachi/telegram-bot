@@ -6,8 +6,8 @@ const koaBody = require('koa-body')
 const APP_PORT = 3000;
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
-const webhookUrl = `${process.env.DOMAIN}/${process.env.PATH}`;
-const webhookPath = `/${process.env.PATH}`;
+const webhookUrl = `${process.env.WEBHOOK_DOMAIN}/${process.env.WEBHOOK_PATH}`;
+const webhookPath = `/${process.env.WEBHOOK_PATH}`;
 bot.telegram.setWebhook(webhookUrl)
 
 bot.start((ctx) => ctx.reply("用法问问dalao？"));
