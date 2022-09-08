@@ -6,7 +6,9 @@ const koaBody = require('koa-body')
 const APP_PORT = 3000;
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
-bot.telegram.setWebhook(`${process.env.DOMAIN}/${process.env.PATH}`)
+const webhookUrl = `${process.env.DOMAIN}/${process.env.PATH}`;
+const webhookPath = `/${process.env.PATH}`;
+bot.telegram.setWebhook(webhookUrl)
 
 bot.start((ctx) => ctx.reply("用法问问dalao？"));
 bot.help((ctx) => ctx.reply("没有帮助，问dalao去.jpg"));
@@ -40,7 +42,7 @@ bot.on('sticker', (ctx) => {
 const app = new Koa()
 app.use(koaBody())
 app.use(async (ctx, next) => {
-  if (ctx.method !== 'POST' || ctx.url !== `/${process.env.PATH}`) {
+  if (ctx.method !== 'POST' || ctx.url !== webhookPath) {
     return next()
   }
   await bot.handleUpdate(ctx.request.body, ctx.response)
