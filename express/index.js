@@ -1,15 +1,12 @@
-const express = require("express");
 const { Telegraf } = require("telegraf");
 const {processPhotoMessage} = require('../service/photo');
-
-const app = express();
+const Koa = require('koa')
+const koaBody = require('koa-body')
 
 const APP_PORT = 3000;
-const token = process.env.TELEGRAM_BOT_TOKEN;
 
-const bot = new Telegraf(token);
-
-app.use(await bot.createWebhook({ domain: "https://unusual-bedclothes-crow.cyclic.app" }));
+const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
+bot.telegram.setWebhook('https://unusual-bedclothes-crow.cyclic.app/YukinoshitaKyaru')
 
 bot.start((ctx) => ctx.reply("用法问问dalao？"));
 bot.help((ctx) => ctx.reply("没有帮助，问dalao去.jpg"));
@@ -40,8 +37,17 @@ bot.on('sticker', (ctx) => {
   ctx.reply("等一下做个上传 + gist push", {reply_to_message_id: msgId})
 });
 
-// app.get('/', (req, res) => res.send('???'))
+const app = new Koa()
+app.use(koaBody())
+app.use(async (ctx, next) => {
+  if (ctx.method !== 'POST' || ctx.url !== '/YukinoshitaKyaru') {
+    return next()
+  }
+  await bot.handleUpdate(ctx.request.body, ctx.response)
+  ctx.status = 200
+})
+app.use(async (ctx) => {
+  ctx.body = 'Hello World'
+})
 
-app.listen(APP_PORT, () => {
-  console.log(`listening on ${APP_PORT}`);
-});
+app.listen(3000)
