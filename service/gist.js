@@ -1,4 +1,4 @@
-const { Octokit, App } = require("octokit");
+const { Octokit } = require("octokit");
 
 const GIST_TOKEN =
   process.env.GIST_TOKEN;
@@ -35,6 +35,11 @@ getContentByGistId = async (gist_id, fileName) => {
 
     return "";
 } 
+
+module.exports = {
+  getContentByGistId,
+  appendGistByGistId
+}
 
 // getContentByGistId("08237ee1dcf642b31f21b9eb95f3d17f", "test.json")
 
