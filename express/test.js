@@ -1,4 +1,4 @@
-const Telegraf = require('telegraf')
+const { Telegraf } = require('telegraf')
 const express = require('express')
 const APP_PORT = 3000;
 const token = process.env.TELEGRAM_BOT_TOKEN;
