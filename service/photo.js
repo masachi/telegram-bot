@@ -6,7 +6,7 @@ const processPhotoMessage = async (ctx, message) => {
     message.photo.sort((a, b) => b.file_size || 0 - a.file_size || 0);
     if (message.photo[0]) {
       let uploadResponse = await uploadPhotoToTelegraph(ctx, message.photo[0]);
-      appendGistByGistId("08237ee1dcf642b31f21b9eb95f3d17f", uploadResponse, "test.json");
+      await appendGistByGistId("08237ee1dcf642b31f21b9eb95f3d17f", uploadResponse, "test.json");
       return uploadResponse;
     }
   }
