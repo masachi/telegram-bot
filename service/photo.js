@@ -1,4 +1,4 @@
-import {uploadByUrl} from "../utils/upload";
+const {uploadByUrl} = require("../utils/upload");
 
 const processPhotoMessage = async (message) => {
   if (message.photo && message.photo.length > 0) {
