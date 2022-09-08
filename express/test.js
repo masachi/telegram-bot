@@ -5,7 +5,9 @@ const koaBody = require('koa-body')
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 bot.telegram.setWebhook('https://unusual-bedclothes-crow.cyclic.app/YukinoshitaKyaru')
 
-bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hello</b>'))
+bot.on('text', (ctx) => {
+    ctx.reply("蛤？")
+});
 
 const app = new Koa()
 app.use(koaBody())
