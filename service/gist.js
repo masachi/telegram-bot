@@ -23,15 +23,17 @@ appendGistByGistId = async (gist_id, appendContent, fileName) => {
   let content = await getContentByGistId(gist_id, fileName);
   let jsonContent = JSON.parse(content);
 
+  console.log("更新gist, 内容：", appendContent);
   jsonContent.push(appendContent);
 
   await updateGistByGistId(gist_id, JSON.stringify(jsonContent), fileName);
 };
 
 getContentByGistId = async (gist_id, fileName) => {
-    console.log("获取gist 内容 ING")
+    console.log("获取gist 内容 ING", gist_id)
     const gistGetResponse = await octokit.request(`GET /gists/${gist_id}`);
     if(gistGetResponse.status === 200) {
+        console.log("获取gist 内容 Done", gist_id)
         return gistGetResponse.data.files[fileName].content;
     }
 
