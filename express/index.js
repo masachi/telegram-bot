@@ -49,7 +49,10 @@ app.use(async (ctx, next) => {
   ctx.status = 200
 })
 app.use(async (ctx) => {
-  ctx.body = 'Hello World'
+  ctx.body = {
+    webhookUrl: webhookUrl,
+    webhookPath: webhookPath
+  }
 })
 
 app.listen(3000)
