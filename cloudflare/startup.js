@@ -1,5 +1,5 @@
 const { Telegraf } = require('telegraf');
-const bot = new Telegraf("5616034370:AAFRfljBgPf4Z_GEl_LBnGNVAlhsfKdQg-E");
+const bot = new Telegraf("");
 
 (async () => {
     // set webhook
