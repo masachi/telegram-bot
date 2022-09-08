@@ -1,6 +1,6 @@
 const express = require("express");
 const { Telegraf } = require("telegraf");
-const {processPhotoMessage} = require('./service/photo');
+const {processPhotoMessage} = require('../service/photo');
 
 const app = express();
 
