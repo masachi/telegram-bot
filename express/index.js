@@ -8,6 +8,9 @@ const APP_PORT = 3000;
 const token = process.env.TELEGRAM_BOT_TOKEN;
 
 const bot = new Telegraf(token);
+
+app.use(await bot.createWebhook({ domain: "https://unusual-bedclothes-crow.cyclic.app" }));
+
 bot.start((ctx) => ctx.reply("用法问问dalao？"));
 bot.help((ctx) => ctx.reply("没有帮助，问dalao去.jpg"));
 
@@ -37,7 +40,7 @@ bot.on('sticker', (ctx) => {
   ctx.reply("等一下做个上传 + gist push", {reply_to_message_id: msgId})
 });
 
-bot.launch();
+// app.get('/', (req, res) => res.send('???'))
 
 app.listen(APP_PORT, () => {
   console.log(`listening on ${APP_PORT}`);
