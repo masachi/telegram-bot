@@ -1,14 +1,13 @@
-import express from "express";
-import { Telegraf } from "telegraf";
+const { Telegraf } = require('telegraf');
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
-
 const bot = new Telegraf(token);
-const app = express();
+bot.start((ctx) => ctx.reply('Welcome'));
+bot.help((ctx) => ctx.reply('Send me a sticker'));
+bot.on('sticker', (ctx) => ctx.reply('👍'));
+bot.hears('hi', (ctx) => ctx.reply('Hey there'));
+bot.launch();
 
-// Set the bot API endpoint
-app.use(await bot.createWebhook({ domain: "https://unusual-bedclothes-crow.cyclic.app" }));
-
-bot.on("text", ctx => ctx.reply("Hello"));
-
-app.listen(3000, () => console.log("Listening on port", port));
+// Enable graceful stop
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));
