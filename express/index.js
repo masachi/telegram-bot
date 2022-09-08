@@ -22,7 +22,7 @@ bot.on('video', (ctx) => {
 bot.on('photo', async (ctx) => {
   const msgId = ctx.message.message_id;
   const message = ctx.message;
-  const uploadedFile = await processPhotoMessage(message);
+  const uploadedFile = await processPhotoMessage(ctx, message);
   if(uploadedFile.link) {
     ctx.reply(uploadedFile.link, {reply_to_message_id: msgId})
   }
