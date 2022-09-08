@@ -6,7 +6,7 @@ const koaBody = require('koa-body')
 const APP_PORT = 3000;
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
-bot.telegram.setWebhook('https://unusual-bedclothes-crow.cyclic.app/YukinoshitaKyaru')
+bot.telegram.setWebhook(`${process.env.DOMAIN}/${process.env.PATH}`)
 
 bot.start((ctx) => ctx.reply("用法问问dalao？"));
 bot.help((ctx) => ctx.reply("没有帮助，问dalao去.jpg"));
@@ -40,7 +40,7 @@ bot.on('sticker', (ctx) => {
 const app = new Koa()
 app.use(koaBody())
 app.use(async (ctx, next) => {
-  if (ctx.method !== 'POST' || ctx.url !== '/YukinoshitaKyaru') {
+  if (ctx.method !== 'POST' || ctx.url !== `/${process.env.PATH}`) {
     return next()
   }
   await bot.handleUpdate(ctx.request.body, ctx.response)

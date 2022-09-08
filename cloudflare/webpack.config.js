@@ -1,5 +1,6 @@
 // webpack.config.js
 const path = require('path');
+const webpack = require('webpack');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
@@ -15,7 +16,12 @@ module.exports = {
       fs: false,
     },
   },
-  plugins: [new NodePolyfillPlugin()],
+  plugins: [
+    new NodePolyfillPlugin(),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
+  ],
   performance: {
     hints: false,
   },
