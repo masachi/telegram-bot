@@ -20,4 +20,4 @@ const uploadPhotoToTelegraph = async (photo) => {
   return uploaded;
 };
 
-export { processPhotoMessage };
+module.exports = { processPhotoMessage };
