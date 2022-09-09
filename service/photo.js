@@ -13,7 +13,7 @@ const processPhotoMessage = async (ctx, message) => {
       })
     }
     await appendGistByGistId(process.env.GIST_ID, uploadContent, process.env.FILE_NAME);
-    return uploadResponse;
+    return uploadContent[uploadContent.length - 1];
   }
 
   return {
