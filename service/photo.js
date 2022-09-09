@@ -4,12 +4,16 @@ const {appendGistByGistId} = require("../service/gist");
 const processPhotoMessage = async (ctx, message) => {
   console.log("Photo Message", JSON.stringify(message));
   if (message.photo && message.photo.length > 0) {
-    message.photo.sort((a, b) => b.file_size || 0 - a.file_size || 0);
-    if (message.photo[0]) {
-      let uploadResponse = await uploadPhotoToTelegraph(ctx, message.photo[0]);
-      await appendGistByGistId(process.env.GIST_ID, uploadResponse, process.env.FILE_NAME);
-      return uploadResponse;
+    let uploadContent = [];
+    for(let photoItem of message.photo) {
+      let uploadResponse = await uploadPhotoToTelegraph(ctx, photoItem);
+      uploadContent.push({
+        ...photoItem,
+        ...uploadResponse
+      })
     }
+    await appendGistByGistId(process.env.GIST_ID, uploadContent, process.env.FILE_NAME);
+    return uploadResponse;
   }
 
   return {
