@@ -2,6 +2,7 @@ const {uploadByUrl} = require("../utils/upload");
 const {appendGistByGistId} = require("../service/gist");
 
 const processPhotoMessage = async (ctx, message) => {
+  console.log("Photo Message", JSON.stringify(message));
   if (message.photo && message.photo.length > 0) {
     message.photo.sort((a, b) => b.file_size || 0 - a.file_size || 0);
     if (message.photo[0]) {
