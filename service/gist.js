@@ -27,10 +27,11 @@ appendGistByGistId = async (gist_id, appendContent, fileName) => {
 
   console.log("更新gist, 内容：", appendContent);
   if(jsonContent[currentDate]) {
-    jsonContent[currentDate] = []
+    jsonContent[currentDate].push(appendContent);
   }
-
-  jsonContent[currentDate].push(appendContent);
+  else {
+    jsonContent[currentDate] = [appendContent]
+  }
 
   await updateGistByGistId(gist_id, JSON.stringify(jsonContent), fileName);
 };
