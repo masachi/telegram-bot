@@ -1,5 +1,5 @@
 const { Octokit } = require("octokit");
-const {dayjs} = require('dayjs');
+const dayjs = require('dayjs')
 
 const GIST_TOKEN =
   process.env.GIST_TOKEN;
