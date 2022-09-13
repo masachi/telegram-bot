@@ -1,13 +1,16 @@
 const {uploadByUrl} = require("../utils/upload");
 const {appendGistByGistId} = require("../service/gist");
+const { v4: uuidv4 } = require('uuid');
 
 const processPhotoMessage = async (ctx, message) => {
   console.log("Photo Message", JSON.stringify(message));
   if (message.photo && message.photo.length > 0) {
     let uploadContent = [];
+    let id = uuidv4();
     for(let photoItem of message.photo) {
       let uploadResponse = await uploadPhotoToTelegraph(ctx, photoItem);
       uploadContent.push({
+        id: id,
         ...photoItem,
         ...uploadResponse
       })

@@ -41,11 +41,11 @@ getContentByGistId = async (gist_id, fileName) => {
     const gistGetResponse = await octokit.request(`GET /gists/${gist_id}`);
     console.log("获取gist 内容 Response", JSON.stringify(gistGetResponse))
     if(gistGetResponse.status === 200) {
-        console.log("获取gist 内容 Done", gist_id)
+        console.log("获取gist 内容 Done", gist_id)  
         return gistGetResponse.data.files[fileName].content;
     }
 
-    return JSON.stringify([]);
+    return JSON.stringify({});
 } 
 
 module.exports = {
