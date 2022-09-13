@@ -1,4 +1,5 @@
 const { Octokit } = require("octokit");
+const {dayjs} = require('dayjs');
 
 const GIST_TOKEN =
   process.env.GIST_TOKEN;
@@ -22,9 +23,14 @@ updateGistByGistId = async (gist_id, content, fileName) => {
 appendGistByGistId = async (gist_id, appendContent, fileName) => {
   let content = await getContentByGistId(gist_id, fileName);
   let jsonContent = JSON.parse(content);
+  let currentDate = dayjs().format("YYYY-MM-DD")
 
   console.log("更新gist, 内容：", appendContent);
-  jsonContent.push(appendContent);
+  if(jsonContent[currentDate]) {
+    jsonContent[currentDate] = []
+  }
+
+  jsonContent[currentDate].push(appendContent);
 
   await updateGistByGistId(gist_id, JSON.stringify(jsonContent), fileName);
 };
