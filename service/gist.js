@@ -27,7 +27,7 @@ appendGistByGistId = async (gist_id, appendContent, fileName) => {
 
   console.log("更新gist, 内容：", appendContent);
   if(jsonContent[currentDate]) {
-    jsonContent[currentDate].push(appendContent);
+    jsonContent[currentDate].unshift(appendContent);
   }
   else {
     jsonContent[currentDate] = [appendContent]
