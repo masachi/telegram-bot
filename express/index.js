@@ -14,6 +14,7 @@ bot.start((ctx) => ctx.reply("用法问问dalao？"));
 bot.help((ctx) => ctx.reply("没有帮助，问dalao去.jpg"));
 
 bot.on('text', (ctx) => {
+  console.log("message info", ctx.message)
   ctx.reply("蛤？")
 });
 
