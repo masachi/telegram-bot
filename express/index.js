@@ -16,8 +16,8 @@ bot.start((ctx) => ctx.reply("用法问问dalao？"));
 bot.help((ctx) => ctx.reply("没有帮助，问dalao去.jpg"));
 
 bot.on("text", (ctx) => {
-  console.log("message info", ctx.message);
   const message = ctx.message;
+  console.log("message info", message, message.entities, message.entities[0].type);
   if (message.entities && message.entities.length > 0) {
     if(message.entities[0].type === 'url') {
       ogs({ url: message.text }).then((data) => {
