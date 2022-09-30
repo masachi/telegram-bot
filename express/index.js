@@ -15,19 +15,21 @@ bot.telegram.setWebhook(webhookUrl);
 bot.start((ctx) => ctx.reply("用法问问dalao？"));
 bot.help((ctx) => ctx.reply("没有帮助，问dalao去.jpg"));
 
-bot.on("text", (ctx) => {
+bot.on("text", async (ctx) => {
   const message = ctx.message;
-  console.log("message info", message, message.entities, message.entities[0].type);
+  console.log(
+    "message info",
+    message
+  );
   if (message.entities && message.entities.length > 0) {
-    if(message.entities[0].type === 'url') {
-      ogs({ url: message.text }).then((data) => {
-        const { error, result, response } = data;
-        console.log("error:", error); // This returns true or false. True if there was an error. The error itself is inside the results object.
-        console.log("result:", result); // This contains all of the Open Graph results
-        console.log("response:", response); // This contains the HTML of page
-        ctx.reply("link yes!");
-        return;
-      });
+    if (message.entities[0].type === "url") {
+      let data = await ogs({ url: message.text });
+      const { error, result, response } = data;
+      console.log("error:", error); // This returns true or false. True if there was an error. The error itself is inside the results object.
+      console.log("result:", result); // This contains all of the Open Graph results
+      console.log("response:", response); // This contains the HTML of page
+      ctx.reply("link yes!");
+      return;
     }
   }
   ctx.reply("蛤？dalao在说什么？");
