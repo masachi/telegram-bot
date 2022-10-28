@@ -45,8 +45,6 @@ const uploadByBuffer = (buffer, contentType, agent) => {
       }
 
       if (result[0] && result[0].src) {
-          console.error("upload result", result[0])
-
         return {
             ...result[0],
           link: 'https://telegra.ph' + result[0].src,
