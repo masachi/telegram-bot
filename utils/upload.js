@@ -6,6 +6,7 @@ const FormData = require('form-data')
 const toArray = require('stream-to-array')
 
 const uploadByUrl = (url, agent) => {
+  console.log("获取图片....." + url);
   return fetch(url)
     .then(async (r) => {
       if (!(r.body instanceof stream.Stream)) {
@@ -23,6 +24,7 @@ const uploadByUrl = (url, agent) => {
 }
 
 const uploadByBuffer = (buffer, contentType, agent) => {
+  console.log("上传到telegraph上.....")
   if (!Buffer.isBuffer(buffer)) {
     throw new TypeError('Buffer is not a Buffer')
   }
