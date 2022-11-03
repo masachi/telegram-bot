@@ -56,6 +56,9 @@ const uploadByBuffer = (buffer, contentType, agent) => {
 
       throw new Error('Unknown error')
     })
+    .catch((error) => {
+      console.error("上传到telegraph发生错误： ", error);
+    })
 }
 
 module.exports = {
