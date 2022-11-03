@@ -40,7 +40,10 @@ const uploadByBuffer = (buffer, contentType, agent) => {
     method: 'POST',
     body: form
   })
-    .then(result => result.json())
+    .then(result => {
+      console.error("telegraf upload response: ", result);
+      return result.json()
+    })
     .then((result) => {
       if (result.error) {
         throw result.error
