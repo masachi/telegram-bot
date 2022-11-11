@@ -7,6 +7,7 @@ const compress = require('koa-compress');
 const json = require('koa-json');
 const bodyParser = require('koa-bodyparser');
 const responseHandler = require('../middleware/ResponseHandler');
+const cors = require('@koa/cors');
 
 const APP_PORT = 3000;
 
@@ -48,6 +49,7 @@ bot.on("sticker", (ctx) => {
 });
 
 const app = new Koa();
+app.use(cors());
 app.use(koaBody({
   multipart: true,
   urlencoded: true
