@@ -77,7 +77,7 @@ app.use(async (ctx, next) => {
 router.post('/api/upload', async (ctx, next) => {
   if(ctx?.request?.header) {
     if(ctx?.request?.header?.authorization) {
-      if(ctx?.request?.header?.authorization === 'fa1385ffecef4945b0ddfd505a6a2bca') {
+      if(ctx?.request?.header?.authorization === process.env.UPLOAD_TOKEN) {
         if(ctx?.request?.files?.file) {
           const file = ctx.request.files.file;
           return await uploadImage(file);
