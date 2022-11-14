@@ -51,6 +51,8 @@ const uploadImage = async (file) => {
     result['originUrl'] = `${IMG_DOMAIN_SUFFIX}${uploadResult.path}`;
     result['tgUrl'] = uploadResult.link;
 
+    result['mimetype'] = fileType;
+
     return result;
 }
 
