@@ -35,8 +35,8 @@ bot.on("photo", async (ctx) => {
   const msgId = ctx.message.message_id;
   const message = ctx.message;
   const uploadedFile = await processPhotoMessage(ctx, message);
-  if (uploadedFile.link) {
-    ctx.reply(uploadedFile.link, { reply_to_message_id: msgId });
+  if (uploadedFile.path) {
+    ctx.reply(`https://telegra.ph${uploadedFile.path}`, { reply_to_message_id: msgId });
   } else {
     ctx.reply("好像出错了~", { reply_to_message_id: msgId });
   }
