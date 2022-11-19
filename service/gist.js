@@ -41,7 +41,7 @@ getContentByGistId = async (gist_id, fileName) => {
     const gistGetResponse = await octokit.request(`GET /gists/${gist_id}`);
     console.log("获取gist 内容 Response 成功")
     if(gistGetResponse.status === 200) {
-        console.log("获取gist 内容 Done", gist_id, gistGetResponse)  
+        console.log("获取gist 内容 Done", gist_id, JSON.stringify(gistGetResponse.data.files[fileName]))  
         return gistGetResponse.data.files[fileName].content;
     }
 
