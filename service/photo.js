@@ -13,8 +13,9 @@ const processPhotoMessage = async (ctx, message) => {
       if(uploadResponse?.link) {
         uploadContent.push({
           id: id,
-          ...photoItem,
-          ...uploadResponse
+          width: photoItem?.width,
+          height: photoItem?.height,
+          path: uploadResponse?.path
         });
         waitForUploadCount++;
       }

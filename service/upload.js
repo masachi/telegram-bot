@@ -37,6 +37,10 @@ const uploadImage = async (file) => {
 
     let uploadResult = await uploadByBuffer(buffer, fileType)
 
+    if(uploadResult?.code === 1) {
+        return uploadResult;
+    }
+
     let fileName = uploadResult.path.replace("/file/", "");
 
     const dimensions = sizeOf(buffer)

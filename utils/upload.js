@@ -46,11 +46,15 @@ const uploadByBuffer = (buffer, contentType, agent) => {
     })
     .then((result) => {
       if (result.error) {
-        throw result.error
+        return {
+          code: 1,
+          error: error
+        }
       }
 
       if (result[0] && result[0].src) {
         return {
+          code: 0,
             ...result[0],
           link: 'https://telegra.ph' + result[0].src,
           path: result[0].src,
@@ -61,6 +65,10 @@ const uploadByBuffer = (buffer, contentType, agent) => {
     })
     .catch((error) => {
       console.error("上传到telegraph发生错误： ", error);
+      return {
+        code: 1,
+        error: error
+      }
     })
 }
 
