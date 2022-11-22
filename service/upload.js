@@ -24,8 +24,6 @@ const toArray = require("stream-to-array");
 const sizeOf = require('image-size')
 const Jimp = require('jimp');
 
-Jimp.deflateStrategy(2);
-
 const CDN_DOMAIN_SUFFIX = "https://cdn.cv3sarato.ga/api";
 const IMG_DOMAIN_SUFFIX = "https://cdn.cv3sarato.ga/api";
 
@@ -50,12 +48,12 @@ const uploadImage = async (file) => {
         let imageProcessor = await Jimp.read(filePath);
 
         if(buffer.length >= 5 * 1024 * 1024) {
-          console.error("压缩中....")
-          if(mimetype === 'image/png') {
-            imageProcessor = imageProcessor.deflateLevel(3);
+          console.error("压缩中....", fileType)
+          if(fileType === 'image/png') {
+            imageProcessor = imageProcessor.deflateLevel(9).deflateStrategy(3);
           }
           
-          if(mimetype === 'image/jpeg') {
+          if(fileType === 'image/jpeg') {
              imageProcessor = imageProcessor.quality(80); 
           }
         }
@@ -72,10 +70,10 @@ const uploadImage = async (file) => {
         }
 
         console.error("写入处理完的文件....")
-        await imageProcessor.writeAsync(filePath)
+        await imageProcessor.writeAsync(`${filePath}.jpg`)
     }
 
-    array = await toArray(fs.createReadStream(filePath))
+    array = await toArray(fs.createReadStream(`${filePath}.jpg`))
     buffer = Buffer.concat(array)
 
     dimensions = sizeOf(buffer)
