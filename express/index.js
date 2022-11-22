@@ -52,7 +52,8 @@ const app = new Koa();
 app.use(cors());
 app.use(koaBody({
   multipart: true,
-  urlencoded: true
+  urlencoded: true,
+  formLimit: '10mb'
 }));
 app.use(bodyParser());
 app.use(json());
