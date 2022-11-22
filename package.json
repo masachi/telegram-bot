@@ -22,6 +22,7 @@
     "form-data": "^4.0.0",
     "formdata-node": "^5.0.0",
     "image-size": "^1.0.2",
+    "jimp": "^0.16.2",
     "koa": "^2.13.4",
     "koa-body": "^5.0.0",
     "koa-bodyparser": "^4.3.0",
