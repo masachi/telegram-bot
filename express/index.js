@@ -8,6 +8,7 @@ const json = require('koa-json');
 const bodyParser = require('koa-bodyparser');
 const responseHandler = require('../middleware/ResponseHandler');
 const cors = require('@koa/cors');
+const Eureka = require('eureka-js-client').Eureka;
 
 const APP_PORT = 3000;
 
@@ -47,6 +48,32 @@ bot.on("sticker", (ctx) => {
   console.error("ctx", ctx.message);
   ctx.reply("等一下做个上传 + gist push", { reply_to_message_id: msgId });
 });
+
+// eureka
+const client = new Eureka({
+  // application instance information
+  instance: {
+    app: 'upload-service',
+    ipAddr: '52.53.116.73',
+    hostName: 'upload-service.cv3sarato.ga',
+    port: {
+      '$': 3000,
+      '@enabled': true,
+    },
+    vipAddress: 'upload-service',
+    dataCenterInfo: {
+      '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
+      name: 'MyOwn',
+    }
+  },
+  eureka: {
+    // eureka server host / port
+    host: process.env.EUREKA_HOST,
+    port: process.env.EUREKA_PORT,
+    servicePath: '/eureka/apps'
+  },
+});
+client.start();
 
 const app = new Koa();
 app.use(cors());
