@@ -9,6 +9,7 @@ const bodyParser = require('koa-bodyparser');
 const responseHandler = require('../middleware/ResponseHandler');
 const cors = require('@koa/cors');
 const Eureka = require('eureka-js-client').Eureka;
+const {default: agent} = require('skywalking-backend-js');
 
 const APP_PORT = 3000;
 
@@ -74,6 +75,15 @@ const client = new Eureka({
   },
 });
 client.start();
+
+// skywalking
+agent.start({
+  serviceName: 'telegram-bot',
+  serviceInstance: 'telegram-bot',
+  collectorAddress: process.env.SKYWALKING_HOST,
+  authorization: process.env.SKYWALKING_TOKEN,
+});
+
 
 const app = new Koa();
 app.use(cors());
