@@ -50,40 +50,6 @@ bot.on("sticker", (ctx) => {
   ctx.reply("等一下做个上传 + gist push", { reply_to_message_id: msgId });
 });
 
-// eureka
-const client = new Eureka({
-  // application instance information
-  instance: {
-    app: 'upload-service',
-    ipAddr: '52.53.116.73',
-    hostName: 'upload-service.cv3sarato.ga',
-    port: {
-      '$': 3000,
-      '@enabled': true,
-    },
-    vipAddress: 'upload-service',
-    dataCenterInfo: {
-      '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
-      name: 'MyOwn',
-    }
-  },
-  eureka: {
-    // eureka server host / port
-    host: process.env.EUREKA_HOST,
-    port: process.env.EUREKA_PORT,
-    servicePath: '/eureka/apps'
-  },
-});
-client.start();
-
-// skywalking
-agent.start({
-  serviceName: 'spring-template',
-  serviceInstance: 'telegram-bot',
-  collectorAddress: process.env.SKYWALKING_HOST,
-  authorization: process.env.SKYWALKING_TOKEN,
-});
-
 
 const app = new Koa();
 app.use(cors());
@@ -137,3 +103,39 @@ router.post('/api/upload', async (ctx, next) => {
 
 app.use(router.routes())
 app.listen(3000);
+
+console.info("skywalking starting")
+// skywalking
+agent.start({
+  serviceName: 'telegram-bot',
+  serviceInstance: 'telegram-bot',
+  collectorAddress: process.env.SKYWALKING_HOST,
+  authorization: process.env.SKYWALKING_TOKEN,
+});
+console.info("skywalking started")
+
+// // eureka
+// const client = new Eureka({
+//   // application instance information
+//   instance: {
+//     app: 'upload-service',
+//     ipAddr: '52.53.116.73',
+//     hostName: 'upload-service.cv3sarato.ga',
+//     port: {
+//       '$': 3000,
+//       '@enabled': true,
+//     },
+//     vipAddress: 'upload-service',
+//     dataCenterInfo: {
+//       '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
+//       name: 'MyOwn',
+//     }
+//   },
+//   eureka: {
+//     // eureka server host / port
+//     host: '101.226.96.92',
+//     port: 8761,
+//     servicePath: '/eureka/apps'
+//   },
+// });
+// client.start();
