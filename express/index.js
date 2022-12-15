@@ -78,7 +78,7 @@ client.start();
 
 // skywalking
 agent.start({
-  serviceName: 'telegram-bot',
+  serviceName: 'spring-template',
   serviceInstance: 'telegram-bot',
   collectorAddress: process.env.SKYWALKING_HOST,
   authorization: process.env.SKYWALKING_TOKEN,
