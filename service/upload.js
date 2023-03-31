@@ -70,10 +70,10 @@ const uploadImage = async (file) => {
         }
 
         console.error("写入处理完的文件....")
-        await imageProcessor.writeAsync(`${filePath}.jpg`)
+        await imageProcessor.writeAsync(`${filePath}`)
     }
 
-    array = await toArray(fs.createReadStream(`${filePath}.jpg`))
+    array = await toArray(fs.createReadStream(`${filePath}`))
     buffer = Buffer.concat(array)
 
     dimensions = sizeOf(buffer)
