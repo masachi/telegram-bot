@@ -20,9 +20,11 @@
 
 const fs = require("fs");
 const {uploadByBuffer} = require("../utils/upload");
+const { uploadImageToGithub } = require('../utils/uploadToGithub')
 const toArray = require("stream-to-array");
 const sizeOf = require('image-size')
-const Jimp = require('jimp');
+const crypto = require('crypto');
+
 
 const CDN_DOMAIN_SUFFIX = "https://cdn.cv3sarato.ga/api";
 const IMG_DOMAIN_SUFFIX = "https://cdn.cv3sarato.ga/api";
@@ -32,6 +34,7 @@ const uploadImage = async (file) => {
 
     let filePath = file.filepath;
     let fileType = file.mimetype;
+    let extension = file.originalFilename.toString().split(".").pop();
 
     let array = await toArray(fs.createReadStream(filePath))
     let buffer = Buffer.concat(array)
@@ -40,48 +43,17 @@ const uploadImage = async (file) => {
 
     console.error("文件Path", filePath);
     console.error("文件Type", fileType);
-    console.error("原始文件大小", buffer.length);
-
-    if (buffer.length >= 5 * 1024 * 1024 || (dimensions.width * dimensions.height) > (4200*5000)) {
-        console.error("文件处理....")
-
-        let imageProcessor = await Jimp.read(filePath);
-
-        if(buffer.length >= 5 * 1024 * 1024) {
-          console.error("压缩中....", fileType)
-          if(fileType === 'image/png') {
-            imageProcessor = imageProcessor.deflateLevel(9).deflateStrategy(3);
-          }
-          
-          if(fileType === 'image/jpeg') {
-             imageProcessor = imageProcessor.quality(80); 
-          }
-        }
-
-        if((dimensions.width * dimensions.height) > (4200*5000)) {
-          console.error("缩放中....")
-
-          let ratio = (4200 * 5000) / (dimensions.width * dimensions.height);
-
-          imageProcessor = imageProcessor.resize(
-            dimensions.width * ratio,
-            dimensions.height * ratio
-          );
-        }
-
-        console.error("写入处理完的文件....")
-        await imageProcessor.writeAsync(`${filePath}`)
-    }
 
     array = await toArray(fs.createReadStream(`${filePath}`))
     buffer = Buffer.concat(array)
 
     dimensions = sizeOf(buffer)
 
-    console.error("处理后文件Path", filePath);
-    console.error("处理后文件大小", buffer.length);
+    console.error("文件大小", buffer.length);
 
-    let uploadResult = await uploadByBuffer(buffer, fileType)
+    const uploadFileName = crypto.createHash('sha1').update(buffer).digest("hex");
+
+    let uploadResult = await uploadImageToGithub(buffer, `${uploadFileName}.${extension}`)
 
     if(uploadResult?.code === 1) {
         return uploadResult;

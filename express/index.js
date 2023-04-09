@@ -11,6 +11,8 @@ const cors = require('@koa/cors');
 const Eureka = require('eureka-js-client').Eureka;
 const {default: agent} = require('skywalking-backend-js');
 
+const githubRawBaseUrl = "https://raw.githubusercontent.com/masachi/files/main"
+
 const APP_PORT = 3000;
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
@@ -38,7 +40,9 @@ bot.on("photo", async (ctx) => {
   const message = ctx.message;
   const uploadedFile = await processPhotoMessage(ctx, message);
   if (uploadedFile.path) {
-    ctx.reply(`https://telegra.ph${uploadedFile.path}`, { reply_to_message_id: msgId });
+    let fileName = uploadedFile.path.replace("/file/");
+    let folder = fileName.substring(0,2);
+    ctx.reply(`${githubRawBaseUrl}/${folder}/${fileName}`, { reply_to_message_id: msgId });
   } else {
     ctx.reply("好像出错了~", { reply_to_message_id: msgId });
   }
