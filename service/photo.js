@@ -1,4 +1,4 @@
-const {uploadByUrl} = require("../utils/upload");
+const {uploadByUrl, uploadByUrlAndFileName} = require("../utils/upload");
 const {appendGistByGistId} = require("../service/gist");
 const { v4: uuidv4 } = require('uuid');
 
@@ -37,7 +37,7 @@ const processPhotoMessage = async (ctx, message) => {
 
 const uploadPhotoToTelegraph = async (ctx, photo) => {
   const currentFileLink = await ctx.telegram.getFileLink(photo.file_id);
-  const uploaded = await uploadByUrl(currentFileLink);
+  const uploaded = await uploadByUrlAndFileName(currentFileLink, photo?.file_unique_id);
   return uploaded;
 };
 

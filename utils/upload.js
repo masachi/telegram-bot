@@ -4,8 +4,9 @@ const fetch = require('node-fetch')
 const FormData = require('form-data')
 
 const toArray = require('stream-to-array')
+const { uploadImageToGithub } = require('./uploadToGithub')
 
-const uploadByUrl = (url, agent) => {
+const uploadByUrl = (url) => {
   console.log("获取图片....." + url);
   return fetch(url)
     .then(async (r) => {
@@ -20,6 +21,25 @@ const uploadByUrl = (url, agent) => {
       }
 
       return uploadByBuffer(buffer, r.headers.get('content-type'), agent)
+    })
+}
+
+const uploadByUrlAndFileName = (url, fileName) => {
+  console.log("获取图片....." + url);
+  const extension = url.split('.').pop();
+  return fetch(url)
+    .then(async (r) => {
+      if (!(r.body instanceof stream.Stream)) {
+        throw new TypeError('Response is not a stream')
+      }
+      const array = await toArray(r.body)
+      const buffer = Buffer.concat(array)
+
+      if (!r.headers.get('content-type')) {
+        throw new Error('No content types in the response')
+      }
+
+      return uploadImageToGithub(buffer, `${fileName}.${extension}`);
     })
 }
 
@@ -75,4 +95,5 @@ const uploadByBuffer = (buffer, contentType, agent) => {
 module.exports = {
   uploadByUrl,
   uploadByBuffer,
+  uploadByUrlAndFileName
 }
