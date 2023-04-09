@@ -26,7 +26,7 @@ const uploadByUrl = (url) => {
 
 const uploadByUrlAndFileName = (url, fileName) => {
   console.log("获取图片....." + url);
-  const extension = url.split('.').pop();
+  const extension = url.toString().split('.').pop();
   return fetch(url)
     .then(async (r) => {
       if (!(r.body instanceof stream.Stream)) {
