@@ -15,6 +15,7 @@
   "dependencies": {
     "@cfworker/web": "^1.12.4",
     "@koa/cors": "^4.0.0",
+    "@octokit/rest": "^19.0.7",
     "abortcontroller-polyfill": "^1.7.3",
     "cfworker-middleware-telegraf": "^2.0.2",
     "dayjs": "^1.11.5",
