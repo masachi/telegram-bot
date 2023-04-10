@@ -40,7 +40,7 @@ bot.on("photo", async (ctx) => {
   const message = ctx.message;
   const uploadedFile = await processPhotoMessage(ctx, message);
   if (uploadedFile.path) {
-    let fileName = uploadedFile.path.replace("/file/");
+    let fileName = uploadedFile.path.replace("/file/", "");
     let folder = fileName.substring(0,2);
     ctx.reply(`${githubRawBaseUrl}/${folder}/${fileName}`, { reply_to_message_id: msgId });
   } else {
