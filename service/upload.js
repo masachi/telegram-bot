@@ -26,8 +26,8 @@ const sizeOf = require('image-size')
 const crypto = require('crypto');
 
 
-const CDN_DOMAIN_SUFFIX = "https://cdn.cv3sarato.ga/api";
-const IMG_DOMAIN_SUFFIX = "https://cdn.cv3sarato.ga/api";
+const CDN_DOMAIN_SUFFIX = "https://cdn.bronya.autos/api";
+const IMG_DOMAIN_SUFFIX = "https://cdn.bronya.autos/api";
 
 const uploadImage = async (file) => {
     let result = {}

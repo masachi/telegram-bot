@@ -124,7 +124,7 @@ console.info("skywalking started")
 //   instance: {
 //     app: 'upload-service',
 //     ipAddr: '52.53.116.73',
-//     hostName: 'upload-service.cv3sarato.ga',
+//     hostName: 'upload-service.bronya.autos',
 //     port: {
 //       '$': 3000,
 //       '@enabled': true,
