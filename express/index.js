@@ -118,6 +118,8 @@ agent.start({
 });
 console.info("skywalking started")
 
+module.exports = app;
+
 // // eureka
 // const client = new Eureka({
 //   // application instance information
