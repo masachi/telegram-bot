@@ -12,7 +12,12 @@ const handler = async (ctx, next) => {
         };
     } catch (e) {
         ctx.response.status = 500;
-        ctx.response.message = e.message;
+        ctx.response.body = {
+            code: "fail",
+            message: 'fail',
+            success: false,
+            data: e.message
+        };
     }
 };
 

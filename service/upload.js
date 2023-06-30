@@ -44,11 +44,6 @@ const uploadImage = async (file) => {
     console.error("文件Path", filePath);
     console.error("文件Type", fileType);
 
-    array = await toArray(fs.createReadStream(`${filePath}`))
-    buffer = Buffer.concat(array)
-
-    dimensions = sizeOf(buffer)
-
     console.error("文件大小", buffer.length);
 
     const uploadFileName = crypto.createHash('sha1').update(buffer).digest("hex");
@@ -56,7 +51,7 @@ const uploadImage = async (file) => {
     let uploadResult = await uploadImageToGithub(buffer, `${uploadFileName}.${extension}`)
 
     if(uploadResult?.code === 1) {
-        return uploadResult;
+        throw new Error(JSON.stringify(uploadResult))
     }
 
     let fileName = uploadResult.path.replace("/file/", "");
