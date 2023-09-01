@@ -22,7 +22,7 @@ updateGistByGistId = async (gist_id, content, fileName) => {
 
 appendGistByGistId = async (gist_id, appendContent, fileName) => {
   let content = await getContentByGistId(gist_id, fileName);
-  let jsonContent = JSON.parse(content);
+  let jsonContent = content;
   let currentDate = dayjs().format("YYYY-MM-DD")
 
   console.log("更新gist, 内容：", appendContent);
