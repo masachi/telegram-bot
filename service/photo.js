@@ -20,12 +20,12 @@ const processPhotoMessage = async (ctx, message) => {
         waitForUploadCount++;
       }
     }
-    if(waitForUploadCount === message.photo.length) {
+    if(waitForUploadCount !== 0) {
       await appendGistByGistId(process.env.GIST_ID, uploadContent, process.env.FILE_NAME);
       return uploadContent[uploadContent.length - 1];
     }
     else {
-      console.log("这条消息对应图片存在上传错误，请重新上传");
+      console.log("这条消息对应图片存在上传错误，请重新上传", waitForUploadCount);
     }
   }
 
