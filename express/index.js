@@ -36,15 +36,19 @@ bot.on("video", (ctx) => {
 });
 
 bot.on("photo", async (ctx) => {
-  const msgId = ctx.message.message_id;
-  const message = ctx.message;
-  const uploadedFile = await processPhotoMessage(ctx, message);
-  if (uploadedFile.path) {
-    let fileName = uploadedFile.path.replace("/file/", "");
-    let folder = fileName.substring(0,2);
-    ctx.reply(`${githubRawBaseUrl}/${folder}/${fileName}`, { reply_to_message_id: msgId });
+  if(ctx.message.chat.id !== "195999776") {
+    ctx.reply("用户错误！！！，请检查");
   } else {
-    ctx.reply("好像出错了~", { reply_to_message_id: msgId });
+    const msgId = ctx.message.message_id;
+    const message = ctx.message;
+    const uploadedFile = await processPhotoMessage(ctx, message);
+    if (uploadedFile.path) {
+      let fileName = uploadedFile.path.replace("/file/", "");
+      let folder = fileName.substring(0,2);
+      ctx.reply(`${githubRawBaseUrl}/${folder}/${fileName}`, { reply_to_message_id: msgId });
+    } else {
+      ctx.reply("好像出错了~", { reply_to_message_id: msgId });
+    }
   }
 });
 
