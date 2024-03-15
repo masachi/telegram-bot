@@ -36,8 +36,9 @@ bot.on("video", (ctx) => {
 });
 
 bot.on("photo", async (ctx) => {
+  console.log("photo message info", message);
   if(ctx.message.chat.id !== "195999776") {
-    ctx.reply("用户错误！！！，请检查");
+    ctx.reply("蛤？你好像不在用户白名单中");
   } else {
     const msgId = ctx.message.message_id;
     const message = ctx.message;
