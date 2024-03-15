@@ -36,8 +36,8 @@ bot.on("video", (ctx) => {
 });
 
 bot.on("photo", async (ctx) => {
-  console.log("photo message info", message);
-  if(ctx.message.chat.id !== "195999776") {
+  console.log("photo message info", ctx.message, ctx.message.chat.id);
+  if(ctx.message.chat.id.toString() !== "195999776") {
     ctx.reply("蛤？你好像不在用户白名单中");
   } else {
     const msgId = ctx.message.message_id;
